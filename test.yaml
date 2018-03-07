@@ -1,0 +1,33 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    dict:
+      foo:
+        bar: "dict_foo_bar"
+    dict2:
+      foo:
+        bar: false
+    dict4: "dict4"
+    dict5:
+        foo: "dict5_foo"
+
+  tasks:
+    - name: "dict_foo_bar is defined"
+      debug: msg="dict_foo_bar is defined"
+      when: dict| has_nested_keys('foo', 'bar')
+
+    - name: "dict_foo_bar is NOT defined"
+      debug: msg="dict_foo2_bar2 is NOT defined"
+      when: dict| has_nested_keys('foo2', 'bar2')
+
+    - debug: msg="dict_foo_bar  {{dict| has_nested_keys('foo', 'bar')}}"
+
+    - debug: msg="dict_foo2_bar2  {{dict | has_nested_keys('foo2', 'bar2')}}"
+
+    - debug: msg="dict2_foo_bar  {{dict2 | has_nested_keys('foo', 'bar')}}"
+
+    - debug: msg="dict3_foo_bar  {{dict3 | has_nested_keys('foo', 'bar')}}"
+
+    - debug: msg="dict4_foo_bar  {{dict4 | has_nested_keys('foo', 'bar')}}"
+
+    - debug: msg="dict5_foo_bar  {{dict5 | has_nested_keys('foo', 'bar')}}"
